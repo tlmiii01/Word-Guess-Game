@@ -2,19 +2,22 @@
 
 // Pseudo code for game mechanics
 
-
-var guessesLeft = 10;
-var word = "testing";
+var maxGuess = 10;
+var guessesLeft = 0;
+var word = "";
 var wordArray = [];
 var board = [];
 var missedLetters = [];
 var hasGameStarted = false;
 var isGameActive = false;
+var numberWins = 0;
+var words = ["machinegun", "voodoochile", "changes", "spangled", "izabella", "purplehaze", "heyjoe"];
 
 var temp = document.getElementById("data");
 var missedGuesses = document.getElementById("guesses");
 var guessCounter = document.getElementById("guessCount");
-var gameOver = document.getElementById("gameStatus")
+var gameOver = document.getElementById("gameStatus");
+var totalWins = document.getElementById("wins");
 
 function printBoard() {
     var tempString = "";
@@ -29,6 +32,7 @@ function updateGame() {
     temp.textContent = printBoard();
     missedGuesses.textContent = missedLetters;
     guessCounter.textContent = guessesLeft;
+    totalWins.textContent = numberWins;
     console.log(board);
 }
 
@@ -53,22 +57,44 @@ function evaluateKey(key) {
     updateGame();
 }
 
-for (let i = 0; i < word.length; ++i) {
-    wordArray.push(word[i]);
-    board.push("_ ");
+
+
+function resetGame() {
+    // Set word to a value - for now seeding, but will be a random word later
+    word = words[Math.floor(Math.random() * words.length)]
+    
+    // Build the board and set up the word array
+    board = [];
+    wordArray = [];
+    for (let i = 0; i < word.length; ++i) {
+        wordArray.push(word[i]);
+        board.push("_ ");
+    }
+
+    // Empty the missed array
+    missedLetters = [];
+
+    // Reset guessesLeft
+    guessesLeft = maxGuess;
+
+    isGameActive = true;
+
+    gameOver = "";
+    updateGame();
 }
 
-updateGame();
 
 function isGameOver() {
     if (guessesLeft === 0) {
         isGameActive = false;
         gameOver.textContent = "You lose...";
+        resetGame();
     } else if (board.includes("_ ") !== true) {
         isGameActive = false;
+        numberWins++;
         gameOver.textContent = "We have a winner!!";
+        resetGame();
     }
-    updateGame();
 }
 
 // Receive keyboard input to start the game.
@@ -76,10 +102,10 @@ document.onkeyup = function (event) {
     // temp.textContent = event.key;
     if (hasGameStarted === false) {
         hasGameStarted = true;
-        isGameActive = true;
+        resetGame();
     } else {
         if (isGameActive === true) {
-            evaluateKey(event.key)
+            evaluateKey(event.key);
             isGameOver();
         }
     }
