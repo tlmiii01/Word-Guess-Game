@@ -205,7 +205,31 @@ document.onkeyup = function (event) {
     }
 }
 
+// Code for pulsing images
+// Need to import jquery for this to work.
 
+// $(document).ready(function () {
+//     fadeIt();
+
+//     $(document).keypress(function() {
+//         console.log("Key pressed..");
+//     })
+
+// });
+
+// var pics = [ "https://www.telegraph.co.uk/content/dam/pets/2017/01/06/1-JS117202740-yana-two-face-cat-news_trans_NvBQzQNjv4BqJNqHJA5DVIMqgv_1zKR2kxRY9bnFVTp4QZlQjJfe6H0.jpg?imwidth=450",
+//              "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2012/11/152177319-declawing-cats-632x475-e1354303246526-632x353.jpg",
+//              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSOFKBU_lSemJnyp3nOUOIgxga4TMhcxPwLxC5vNn4dZdBzhpz7g",
+//              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROtSioogHfxdnZBpIAcZ7DE2ZdL0u1I-IcSCQf9chTQNOvEtRm" ];
+
+// function fadeIt() {
+//     // Set the picture first
+//     // $("#fadeImg").css("opacity", "0")
+//     $("#fadeImg").attr("src", pics[Math.floor(Math.random() *4)]);
+//     $("#fadeImg").fadeOut(2000, function () {
+//         $(this).fadeIn(4000, fadeIt());
+//     })
+// }
 
 
 
