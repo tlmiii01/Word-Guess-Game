@@ -1,19 +1,37 @@
 // Game.js
 
-// Pseudo code for game mechanics
+// New class to associate words with the song titles and files
+class GameItem {
+    constructor(word, title, url) {
+        this.word = word;
+        this.title = title;
+        this.url = url;
+    }
+}
 
-// Building a Game objec
+// Building a Game object
 var game = {
     maxGuess: 10,
     guessesLeft: 0,
     numberWins: 0,
-    word: "",
+    currentGamePiece: null,
     wordArray: [],
     board: [],
     missedLetters: [],
     hasGameStarted: false,
     isGameActive: false,
-    words: ["machinegun", "voodoochile", "changes", "spangled", "izabella", "purplehaze", "heyjoe"],
+
+    // Creating an array of GameItems
+    gamePieces: [new GameItem("machinegun", "Machine Gun", "./assets/src/machine-edit.mp3"),
+    new GameItem("dagger", "Dolly Dagger", "./assets/src/dolly-edit.ogg"),
+    new GameItem("experienced", "Are You Experienced?", "./assets/src/experienced-edit.ogg"),
+    new GameItem("izabella", "Izabella", "./assets/src/izabella-edit.mp3"),
+    new GameItem("littlewing", "Little Wing", "./assets/src/little-edit.mp3"),
+    new GameItem("purplehaze", "Purple Haze", "./assets/src/purple-edit.ogg"),
+    new GameItem("stonefree", "Stone Free", "./assets/src/stone-edit.mp3"),
+    new GameItem("voodoochile", "Voodoo Chile", "./assets/src/voodoo-edit.mp3"),
+    new GameItem("watchtower", "All Along the Watchtower", "./assets/src/watchtower-edit.mp3"),
+    new GameItem("windcriesmary", "The Wind Cries Mary", "./assets/src/wind-edit.mp3")],
 
     // DOM calls
     temp: document.getElementById("data"),
@@ -21,9 +39,10 @@ var game = {
     guessCounter: document.getElementById("guessCount"),
     gameOver: document.getElementById("gameStatus"),
     totalWins: document.getElementById("wins"),
+    clip: document.getElementById("myAudio"),
 
     // Methods
-    printBoard: function() {
+    printBoard: function () {
         var tempString = "";
         for (let i = 0; i < this.board.length; ++i) {
             tempString += this.board[i];
@@ -31,19 +50,18 @@ var game = {
         return tempString;
     },
 
-    updateGame: function() {
+    updateGame: function () {
         this.temp.textContent = this.printBoard();
         this.missedGuesses.textContent = this.missedLetters;
         this.guessCounter.textContent = this.guessesLeft;
         this.totalWins.textContent = this.numberWins;
     },
 
-    evaluateKey: function(key) {
+    evaluateKey: function (key) {
         // Check to see if the key is in the wordArray
         if (this.wordArray.includes(key)) {
-            for (var i = 0; i < this.word.length; ++i) {
-                if (key === this.word[i]) {
-                    // Need to figure out how to update the string.
+            for (var i = 0; i < this.currentGamePiece.word.length; ++i) {
+                if (key === this.currentGamePiece.word[i]) {
                     this.board[i] = key + " ";
                 }
             }
@@ -56,140 +74,46 @@ var game = {
         this.updateGame();
     },
 
-    resetGame: function() {
-        // Set word to a value - for now seeding, but will be a random word later
-        this.word = this.words[Math.floor(Math.random() * this.words.length)]
-        
+    resetGame: function () {
+        // Pick a gamePiece object
+        this.currentGamePiece = this.gamePieces[Math.floor(Math.random() * this.gamePieces.length)]
+
         // Build the board and set up the word array
         this.board = [];
         this.wordArray = [];
-        for (let i = 0; i < this.word.length; ++i) {
-            this.wordArray.push(this.word[i]);
+        for (let i = 0; i < this.currentGamePiece.word.length; ++i) {
+            this.wordArray.push(this.currentGamePiece.word[i]);
             this.board.push("_ ");
         }
-    
+
         // Empty the missed array
         this.missedLetters = [];
-    
+
         // Reset guessesLeft
         this.guessesLeft = this.maxGuess;
-    
+
         this.isGameActive = true;
-    
-        this.gameOver = "";
+
         this.updateGame();
     },
 
-    isGameOver: function() {
+    isGameOver: function () {
+        // Losing condition
         if (this.guessesLeft === 0) {
             this.isGameActive = false;
-            this.gameOver.textContent = "You lose...";
+            this.gameOver.textContent = "You lose, try again";
             this.resetGame();
         } else if (this.board.includes("_ ") !== true) {
             this.isGameActive = false;
             this.numberWins++;
-            this.gameOver.textContent = "We have a winner!!";
+            this.gameOver.textContent = this.currentGamePiece.title;
+            this.clip.setAttribute("src", this.currentGamePiece.url);
+            this.clip.play();
             this.resetGame();
         }
     }
 
 };
-
-
-// var maxGuess = 10;
-// var guessesLeft = 0;
-// var word = "";
-// var wordArray = [];
-// var board = [];
-// var missedLetters = [];
-// var hasGameStarted = false;
-// var isGameActive = false;
-// var numberWins = 0;
-// var words = ["machinegun", "voodoochile", "changes", "spangled", "izabella", "purplehaze", "heyjoe"];
-
-// var temp = document.getElementById("data");
-// var missedGuesses = document.getElementById("guesses");
-// var guessCounter = document.getElementById("guessCount");
-// var gameOver = document.getElementById("gameStatus");
-// var totalWins = document.getElementById("wins");
-
-// function printBoard() {
-//     var tempString = "";
-//     for (let i = 0; i < board.length; ++i) {
-//         tempString += board[i];
-//     }
-//     return tempString;
-//     // console.log(tempString);
-// }
-
-// function updateGame() {
-//     temp.textContent = printBoard();
-//     missedGuesses.textContent = missedLetters;
-//     guessCounter.textContent = guessesLeft;
-//     totalWins.textContent = numberWins;
-//     console.log(board);
-// }
-
-// function evaluateKey(key) {
-//     // Check to see if the key is in the wordArray
-//     console.log(wordArray.includes(key));
-
-//     if (wordArray.includes(key)) {
-//         for (var i = 0; i < word.length; ++i) {
-//             if (key === word[i]) {
-//                 console.log("In if statement");
-//                 // Need to figure out how to update the string.
-//                 board[i] = key + " ";
-//             }
-//         }
-//     } else if (missedLetters.includes(key + " ")) {
-//         console.log("Already guessed");
-//     } else {
-//         missedLetters += key + " ";
-//         guessesLeft--;
-//     }
-//     updateGame();
-// }
-
-
-
-// function resetGame() {
-//     // Set word to a value - for now seeding, but will be a random word later
-//     word = words[Math.floor(Math.random() * words.length)]
-    
-//     // Build the board and set up the word array
-//     board = [];
-//     wordArray = [];
-//     for (let i = 0; i < word.length; ++i) {
-//         wordArray.push(word[i]);
-//         board.push("_ ");
-//     }
-
-//     // Empty the missed array
-//     missedLetters = [];
-
-//     // Reset guessesLeft
-//     guessesLeft = maxGuess;
-
-//     isGameActive = true;
-
-//     gameOver = "";
-//     updateGame();
-// }
-
-
-// function isGameOver() {
-//     if (guessesLeft === 0) {
-//         isGameActive = false;
-//         gameOver.textContent = "You lose...";
-//         resetGame();
-//     } else if (board.includes("_ ") !== true) {
-//         isGameActive = false;
-//         numberWins++;
-//         gameOver.textContent = "We have a winner!!";
-//         resetGame();
-//     }
-// }
 
 // Receive keyboard input to start the game.
 document.onkeyup = function (event) {
