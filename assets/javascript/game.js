@@ -9,6 +9,18 @@ class GameItem {
     }
 }
 
+// Pictures that will rotate while the page is loaded
+var pictures = ["./assets/images/jimi-a.jpg",
+    "./assets/images/jimi-b.jpg",
+    "./assets/images/jimi-c.jpg",
+    "./assets/images/jimi-d.jpg",
+    "./assets/images/jimi-e.jpg",
+    "./assets/images/jimi-f.jpg",
+    "./assets/images/jimi-g.jpg",
+    "./assets/images/jimi-h.jpg",
+    "./assets/images/jimi-i.jpg",
+    "./assets/images/jimi-j.jpg",];
+
 // Building a Game object
 var game = {
     maxGuess: 10,
@@ -115,45 +127,37 @@ var game = {
 
 };
 
-// Receive keyboard input to start the game.
-document.onkeyup = function (event) {
-    // temp.textContent = event.key;
-    if (game.hasGameStarted === false) {
-        game.hasGameStarted = true;
-        game.resetGame();
-    } else {
-        if (game.isGameActive === true) {
-            game.evaluateKey(event.key);
-            game.isGameOver();
-        }
-    }
-}
 
 // Code for pulsing images
 // Need to import jquery for this to work.
 
-// $(document).ready(function () {
-//     fadeIt();
+$(document).ready(function () {
+    fadeIt();
+    
+    // Receive keyboard input to start the game.
+    document.onkeyup = function (event) {
+        // temp.textContent = event.key;
+        if (game.hasGameStarted === false) {
+            game.hasGameStarted = true;
+            game.resetGame();
+        } else {
+            if (game.isGameActive === true) {
+                game.evaluateKey(event.key);
+                game.isGameOver();
+            }
+        }
+    }
 
-//     $(document).keypress(function() {
-//         console.log("Key pressed..");
-//     })
+});
 
-// });
-
-// var pics = [ "https://www.telegraph.co.uk/content/dam/pets/2017/01/06/1-JS117202740-yana-two-face-cat-news_trans_NvBQzQNjv4BqJNqHJA5DVIMqgv_1zKR2kxRY9bnFVTp4QZlQjJfe6H0.jpg?imwidth=450",
-//              "https://d17fnq9dkz9hgj.cloudfront.net/uploads/2012/11/152177319-declawing-cats-632x475-e1354303246526-632x353.jpg",
-//              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSOFKBU_lSemJnyp3nOUOIgxga4TMhcxPwLxC5vNn4dZdBzhpz7g",
-//              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROtSioogHfxdnZBpIAcZ7DE2ZdL0u1I-IcSCQf9chTQNOvEtRm" ];
-
-// function fadeIt() {
-//     // Set the picture first
-//     // $("#fadeImg").css("opacity", "0")
-//     $("#fadeImg").attr("src", pics[Math.floor(Math.random() *4)]);
-//     $("#fadeImg").fadeOut(2000, function () {
-//         $(this).fadeIn(4000, fadeIt());
-//     })
-// }
+function fadeIt() {
+    // Set the picture first
+    // $("#fadeImg").css("opacity", "0")
+    $("#fadeImg").attr("src", pictures[Math.floor(Math.random() * pictures.length)]);
+    $("#fadeImg").fadeOut(2000, function () {
+        $(this).fadeIn(4000, fadeIt());
+    })
+}
 
 
 
