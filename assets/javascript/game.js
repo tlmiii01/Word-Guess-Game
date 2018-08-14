@@ -49,11 +49,15 @@ var game = {
     temp: document.getElementById("data"),
     missedGuesses: document.getElementById("guesses"),
     guessCounter: document.getElementById("guessCount"),
-    gameOver: document.getElementById("gameStatus"),
+    gameOver: document.getElementById("status"),
     totalWins: document.getElementById("wins"),
     clip: document.getElementById("myAudio"),
 
     // Methods
+    startGame: function() {
+        this.gameOver.textContent = "Press any key to begin!";
+    },
+
     printBoard: function () {
         var tempString = "";
         for (let i = 0; i < this.board.length; ++i) {
@@ -132,13 +136,16 @@ var game = {
 // Need to import jquery for this to work.
 
 $(document).ready(function () {
+    game.startGame();
     fadeIt();
-    
+
+
     // Receive keyboard input to start the game.
     document.onkeyup = function (event) {
         // temp.textContent = event.key;
         if (game.hasGameStarted === false) {
             game.hasGameStarted = true;
+            game.gameOver.textContent = "";
             game.resetGame();
         } else {
             if (game.isGameActive === true) {

@@ -1,8 +1,50 @@
 /* Are You Experience colors */
 /* Yellow - #e5da02 */
-/* Purple - #e5da02 */
+/* Purple - #7d07ba*/
 /* Orange border - #cc8b39 */
 
 
 /* Purple from Box set - #3f1859 */
 /* Gold/kakhi frm box set lettering - #a6956c */
+
+@import url('https://fonts.googleapis.com/css?family=Philosopher:400,700');
+
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Philosopher', sans-serif;
+    background-image: url("../images/bedge_grunge.png");
+}
+
+.header {
+    height: 7rem;
+    background: #3f1859;
+    color: #a6956c;
+    font-size: 4rem;
+    font-weight: 600;
+}
+
+img {
+    height: 20rem;
+    width: 20rem;
+}
+
+.content {
+    height: 35rem;
+    border: 2px solid #cc8b39;
+    background: #e4df7e;
+    color: #7d07ba;
+    font-size: 2rem;
+    font-weight: 700;
+    text-shadow: 0 0 20px #cc8b39;
+}
+
+.game-status {
+    height: 4rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    font-size: 2.4rem;
+    border-bottom: 1px solid #cc8b39;
+}

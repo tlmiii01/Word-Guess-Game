@@ -1,31 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Page Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="./assets/css/style.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 </head>
+
 <body>
-    <h1>Jimi Hendrix Guessing Game</h1>
-    
-    <h2>Hangman board: <span id="data"></span><h2>
 
-    <p>Missed Letters: <span id="guesses"></span></p>
+    <div class="container">
+        <div class="header row">
+            <div class="text-center w-100">
+                Jimi Hendrix Guessing Game
+            </div>
+        </div>
+        <div class="row content">
+            <div class="game-status text-center">
+                <p id="status"></p>
+            </div>
+            <div class="col-sm-4">
+                <img class="img-fluid" id="fadeImg" src="" alt="Fading images of Jimi">
+            </div>
+            <div class="col-sm-8">
+                <p>Game Board: <span id="data"></span><p>
+                <p>Missed Letters: <span id="guesses"></span></p>
+                <p>Guesses remaining: <span id="guessCount"></span></p>
+                <p>Total Wins: <span id="wins"></span></p>
+            </div>
+        </div>
 
-    <p>Guesses remaining: <span id="guessCount"></span></p>
 
-    <p id="gameStatus"></p>
 
-    <p>Total Wins: <span id="wins"></span></p>
-    
-    <img id="fadeImg" src="" alt="Fading images of Jimi">
-    
-    <audio id="myAudio" src=""></audio>
-    
-    
+        <audio id="myAudio" src=""></audio>
+
+    </div>
+
+
     <script src="./assets/javascript/game.js"></script>
 </body>
+
 </html>
